@@ -13965,7 +13965,7 @@ require.define("/browser.entry.js", function (require, module, exports, __dirnam
     var previousSplunk = window[exportName];
     
     var ourSplunk     = require('../../index');
-    var jqueryHttp    = require('../../lib/platform/client/jquery_http').JQueryHttp; 
+    var jqueryHttp    = require('../../lib/platform/client/jquery_http').JQueryHttp;
     var proxyHttps    = require('../../lib/platform/client/proxy_http');
     var proxyHttp     = proxyHttps.ProxyHttp;
     var splunkwebHttp = proxyHttps.SplunkWebHttp;
