@@ -3,8 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <title>ESA Killer App</title>
+        <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="splunk_client/splunk.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var http = new splunkjs.ProxyHttp("/proxy");
+            var service = new splunkjs.Service(http, {
+                username: "admin",
+                password: "admin"
+            });
+            service.login(function(err, success) {
+                if (err) {
+                    throw err;
+                }
+                console.log("Login was successful: " + success);
+            });
+        </script>
     </head>
     <body>
-        test
     </body>
 </html>
