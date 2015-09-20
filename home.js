@@ -7,11 +7,6 @@ var sliders = {};
 $('document').ready(function() {
 
     generateMap();
-    // addSlider($('#slider-range-health'), $('#healthRateValue'));
-    // addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
-    // addSlider($('#slider-range-crime'), $('#crimeRateValue'));
-    // addSlider($('#slider-range-urbanness'), $('#urbannessRateValue'));
-    // addSlider($('#slider-range-greenness'), $('#greennessRateValue'));
     addSlider('slider-range-health');
     addSlider('slider-range-pollution');
     addSlider('slider-range-crime');
@@ -32,7 +27,7 @@ function addSlider(sliderId) {
     sliders[sliderId] = {};
     sliders[sliderId]['min'] = 0;
     sliders[sliderId]['max'] = 1;
-    // createMacro(sliderId);
+    createMacro(sliderId);
 
     element.addEventListener('change',function(){
         sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
@@ -69,9 +64,10 @@ function handleSplunkJob(macroDef) {
 
     var search = macroDef.queryString;
     var cancelled = false;
-    service.oneshotSearch(
+    var request = service.oneshotSearch(
         search, {output_mode: macroDef.outputmode },
         function(err, results) {
+            request=null;
             if (cancelled) {
                 return
             }
@@ -79,9 +75,18 @@ function handleSplunkJob(macroDef) {
             macroDef.applyResults(results, err);
         }
     );
+
     return function() {
         if (!cancelled) {
             cancelled = true;
+            if(request!=null){
+                var r=request;
+                request=null;
+                try{
+                    r.abort();
+                }catch(e){
+                }
+            }
         }
     }
 }
@@ -176,6 +181,11 @@ function pollutionChartMacro() {
         "axisTitleY.text": "",
         "legend.verticalAlign": "bottom"
     };
+    chart.setData({
+        fields: [],
+        columns: []
+    }, chartMode);
+    chart.draw();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('pollution_chart', macro);
@@ -194,7 +204,10 @@ function pollutionChartMacro() {
 }
 
 function healthChartMacro() {
-    var chart = new splunkjs.UI.Charting.Chart($("#healthchart"), splunkjs.UI.Charting.ChartType.COLUMN, false);
+    var chart = new splunkjs.UI.Charting.Chart(
+        $("#healthchart"),
+        splunkjs.UI.Charting.ChartType.COLUMN,
+        false);
     var chartMode = {
         "chart.stackMode": "default",
         "chart.style": "shiny",
@@ -204,6 +217,11 @@ function healthChartMacro() {
         "axisY.maximumNumber": "1.0",
         "legend.verticalAlign": "bottom"
     };
+    chart.setData({
+        fields: [],
+        columns: []
+    }, chartMode);
+    chart.draw();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('health_chart', macro);
@@ -229,6 +247,11 @@ function crimeChartMacro() {
         "axisTitleY.text": "",
         "legend.verticalAlign": "bottom"
     };
+    chart.setData({
+        fields: [],
+        columns: []
+    }, chartMode);
+    chart.draw();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('crime_chart', macro);
@@ -250,6 +273,11 @@ function urbanChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#urbanchart"), splunkjs.UI.Charting.ChartType.PIE, false);
     var chartMode = {
     };
+    chart.setData({
+        fields: [],
+        columns: []
+    }, chartMode);
+    chart.draw();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('urbanness_chart', macro);
@@ -271,6 +299,11 @@ function greenChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#greenchart"), splunkjs.UI.Charting.ChartType.PIE, false);
     var chartMode = {
     };
+    chart.setData({
+        fields: [],
+        columns: []
+    }, chartMode);
+    chart.draw();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('greenness_chart', macro);
