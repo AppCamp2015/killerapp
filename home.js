@@ -479,27 +479,27 @@ function addMapMarkers(results){
                     geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]]),
                     name: results['columns'][1][i],
                     country: results['columns'][0][i]
-                    })
+                    });
             feature.setStyle(generateFeatureStyle(feature));
                 points.push(feature);
-                }
-        // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
-            // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
+    }
+    // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
+    // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
 
-            var newVectorSource = new ol.source.Vector({
-                features: points
-            });
+    var newVectorSource = new ol.source.Vector({
+        features: points
+    });
 
-            var newVectorLayer = new ol.layer.Vector({
-                source: newVectorSource
-            });
-            map.getLayers().getArray()[1].setSource(newVectorSource);
+    var newVectorLayer = new ol.layer.Vector({
+        source: newVectorSource
+    });
+    map.getLayers().getArray()[1].setSource(newVectorSource);
 
-            map.updateSize();
+    map.updateSize();
 
-            // map.getLayers().getArray()[2].setSource(pointSource);
-            // pointSource.addFeatures(points);	
-};
+    // map.getLayers().getArray()[2].setSource(pointSource);
+    // pointSource.addFeatures(points);
+}
 
 var mapMarkerIcon = new ol.style.Icon({
     anchor: [0.5, 1],
