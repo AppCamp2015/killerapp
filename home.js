@@ -17,7 +17,7 @@ $('document').ready(function() {
     splunkMacros.push(new twitterTopsMacro());
     loginToSplunk();
 
-    
+
 });
 
 function addSlider(sliderId) {
@@ -597,5 +597,22 @@ function generateFeatureStyle(feature){
 }
 
 function queryCityHtmlContent(name,country){
-    return name +" " + country;
+    // return name +" " + country;
+    handleSplunkJob(new macroDef(
+        "(| `city_details(" + name + "," + country + ")`)",
+        function(results,err){
+            console.log(results);
+            $('#popup').removeClass('is-active');
+            $('#popup').removeClass('mdl-spinner');
+            $('#popup').removeClass('mdl-js-spinner');
+        }, // applyResults function
+        function(){
+            $('#popup').addClass('mdl-spinner');
+            $('#popup').addClass('mdl-js-spinner');
+            $('#popup').addClass('is-active');
+        }, // loading implementation
+        function(){} // outputmode impl
+
+        ));
+    return "Success";
 }
