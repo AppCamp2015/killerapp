@@ -151,12 +151,14 @@ function generateMap() {
     map.on('moveend', (function() {
         executeSplunk();
     }));
+
 }
 
 function executeSplunk() {
     if(!splunklogin){
         return;
     }
+    console.log("executing splunk");
 
     // get the value of the search div
     currentJobs.forEach(function(job) {
