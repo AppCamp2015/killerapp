@@ -18,9 +18,9 @@ html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 .demo-avatar {
-  width: 48px;
+  width: 163px;
   height: 48px;
-  border-radius: 24px;
+  /* border-radius: 24px; */
 }
 .demo-layout .demo-header .mdl-textfield {
   padding-top: 27px;

@@ -16,6 +16,7 @@ $('document').ready(function() {
     splunkMacros.push(new cityListMacro());
     // splunkMacros.push(new twitterTopsMacro());
 
+
     $('#twittertagcloud').jQCloud();
 
     loginToSplunk();
