@@ -517,11 +517,11 @@ function generateFeatureStyle(feature){
             text: feature.get('name'),
             fill: new ol.style.Fill({color: 'white'}),
             stroke: new ol.style.Stroke({color: 'white', width: 1}),
-            textBaseLine: 'Middle',
+            textBaseLine: 'top',
             textAlign: 'center',
             font: 'Bold 12px Arial',
             scale: 1,
-            offsetY: 20
+            offsetY: 10
 
             }),
         image: mapMarkerIcon /*  new ol.style.Circle({
