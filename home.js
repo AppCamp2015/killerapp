@@ -22,7 +22,7 @@ $('document').ready(function() {
     addSlider('slider-range-greenness');
     
     splunkMacros.push(new cityListMacro());
-    splunkMacros.push(new twitterTopsMacro());
+    // splunkMacros.push(new twitterTopsMacro());
     executeSplunk();
 
     $('#twittertagcloud').jQCloud();
@@ -62,7 +62,7 @@ function addSlider(sliderId) {
     sliders[sliderId] = {};
     sliders[sliderId]['min'] = 0;
     sliders[sliderId]['max'] = 1;
-    createMacro(sliderId);
+    // createMacro(sliderId);
 
     element.addEventListener('change',function(){
         sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
@@ -225,7 +225,6 @@ function executeSplunk() {
         job();
     });
     currentJobs = [];
-    return;
 
     // var splunkMacros = getSplunkMacros();
 
