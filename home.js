@@ -425,7 +425,7 @@ function cityListMacro() {
                 }
             },
             function() {
-                $('#city_load').removeClass('is-active');
+                $('#city_load').addClass('is-active');
             });
     }
 }
