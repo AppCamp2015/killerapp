@@ -512,8 +512,8 @@ function addMapMarkers(results){
             var newVectorSource = new ol.source.Vector({
                 features: points
             });
-            console.log('adding layer');
-            console.log(newVectorSource);
+            //console.log('adding layer');
+            //console.log(newVectorSource);
             var newVectorLayer = new ol.layer.Vector({
                 source: newVectorSource
             });
@@ -618,5 +618,5 @@ function queryCityHtmlContent(name,country){
             //$('#popup').addClass('is-active');
         } // outputmode impl
         ));
-    return '<table id="'+id+'" style="display: none;" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">  <thead>    <tr>      <th class="mdl-data-table__cell--non-numeric">Type</th>      <th>Value</th> </tr>  </thead>  </tbody></table>';
+    return '<table id="'+id+'" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">  <thead>    <tr>      <th class="mdl-data-table__cell--non-numeric">Type</th>      <th>Value</th> </tr>  </thead>  </tbody></table>';
 }
