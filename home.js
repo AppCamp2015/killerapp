@@ -3,6 +3,7 @@ var currentJobs = [];
 var map;
 var splunkMacros = [];
 var sliders = {};
+var viewportExpanded = false;
 
 $('document').ready(function() {
 
@@ -32,6 +33,25 @@ function addSlider(sliderId) {
         sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
         executeSplunk();
     });
+}
+
+function expandViewPort(){
+    if(viewportExpanded == false){
+        var height = $(window).height();
+        var desiredHeight = Math.round(height*0.9);
+        console.log(desiredHeight);
+        $("#mapholder").animate({height: desiredHeight}, 900,function(){
+            map.updateSize();
+            $('#resizeicon').text("restore");
+        });
+        viewportExpanded = true;
+    }else{
+        $("#mapholder").animate({height: 300}, 900,function(){
+            map.updateSize();
+            $('#resizeicon').text("launch");
+        });
+        viewportExpanded = false;
+    }
 }
 
 function loginToSplunk() {

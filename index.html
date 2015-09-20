@@ -29,7 +29,7 @@
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__header-row" style="padding:0;height:300px">
+        <div id="mapholder" class="mdl-layout__header-row" style="padding:0;height:300px">
           <!-- map goes here -->
           <div id="map" style="width:100%;height:100%;"></div>
         </div>
@@ -50,6 +50,10 @@
           <input id="slider-range-urbanness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="3"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_greenness.png" height="32px" width="32px">Green Coverage</p>
           <input id="slider-range-greenness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="4"/>
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" style="margin-bottom:20px;" onclick="expandViewPort()">
+            <i id="resizeicon" class="material-icons">launch</i>
+          </button>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
