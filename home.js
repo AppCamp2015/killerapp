@@ -468,9 +468,12 @@ function addMapMarkers(results){
 
 function generateFeatureStyle(feature){
     return new ol.style.Text({
-    textAlign: 'left',
     text: feature.get('country') + ": "+ feature.get('name'),
     fill: new ol.style.Fill({color: 'red'}),
     stroke: new ol.style.Stroke({color: 'red', width: '1'}),
+    textBaseLine: 'middle',
+    textAlign: 'left',
+    font: 'bold 12 sans',
+    scale: 0,
   });
 }
