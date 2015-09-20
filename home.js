@@ -604,10 +604,10 @@ function queryCityHtmlContent(name,country){
         function(results,err){
             if(err) return;
             console.log(results);
-            var tbody=$("#"+id+" tbody");
-            tbody.append($('<th><td>dfvdfb</td><td>dfdf</td>/th>'));
-            tbody.append($('<th><td>dfvdfb</td><td>dfdf</td>/th>'));
-            tbody.append($('<th><td>dfvdfb</td><td>dfdf</td>/th>'));
+            var tbody=$("#"+id+"");
+            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
+            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
+            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
             //$('#popup').removeClass('is-active');
             //$('#popup').removeClass('mdl-spinner');
             //$('#popup').removeClass('mdl-js-spinner');
