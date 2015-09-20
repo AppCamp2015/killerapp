@@ -438,6 +438,8 @@ function twitterTopsMacro() {
 }
 
 function cityListMacro() {
+    var mapLoading = $('#maploading');
+    mapLoading.css('display','block');
 
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
@@ -446,13 +448,15 @@ function cityListMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-                //console.log(results);
-                // here goes the code for rendering the results. 
-                addMapMarkers(results);
-
+                //loading.css('display','none');
+                if(err){
+                    addMapMarkers([]);
+                }else{
+                    addMapMarkers(results);
+                }
             },
-            function(results, err) {
-
+            function() {
+                mapLoading.css('display','block');
             });
     }
 }
