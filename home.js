@@ -361,35 +361,33 @@ function addMapMarkers(results){
     }
     var points = [];
 
-    var iconStyle = new ol.style.Style({
-        image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-            anchor: [0.5, 46],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            opacity: 0.75,
-            src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
-        }))
-    });
+        var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+            }))
+        });
 
+    console.log(results);
+        
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
             var coord = [results['columns'][3][i],results['columns'][2][i]];
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
-            points.push(new ol.Feature({
-                geometry: new ol.geom.Point(transformcoord[0], transformcoord[1]),
-                name: results['columns'][1][i],
-                country: results['columns'][0][i]
-                }));
-                points[i].setStyle(iconStyle);
-            }
-
-            // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
+    console.log(coord +":"+ transformcoord);
+            var feature = new ol.Feature({
+                    geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]*-1]),
+                    name: results['columns'][1][i],
+                    country: results['columns'][0][i]
+                    })
+            feature.setStyle(iconStyle);
+                points.push(feature);
+                }
+        // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
             // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
 
-
-
-            var pointSource = new ol.source.Vector({
-                features: points
-            });
 
             var iconFeature = new ol.Feature({
                 geometry: new ol.geom.Point([0, 0]),
@@ -419,7 +417,7 @@ function addMapMarkers(results){
             iconFeature2.setStyle(iconStyle);
 
             var newVectorSource = new ol.source.Vector({
-                features: points
+                features: [iconFeature,iconFeature2]
             });
 
             var newVectorLayer = new ol.layer.Vector({
@@ -432,3 +430,5 @@ function addMapMarkers(results){
             // pointSource.addFeatures(points);	
 
         };
+
+
