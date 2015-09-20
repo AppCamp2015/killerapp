@@ -85,9 +85,10 @@ function handleSplunkJob(macroDef) {
         if (!cancelled) {
             cancelled = true;
             if(request!=null){
+                var r=request;
+                request=null;
                 try{
-                    console.log("abourting request");
-                    request.abort();
+                    r.abort();
                 }catch(e){
                 }
             }
