@@ -427,7 +427,7 @@ function addMapMarkers(results){
             var newVectorLayer = new ol.layer.Vector({
                 source: newVectorSource
             });
-            map.getLayers().toArray()[1].updateSource(newVectorSource);
+            map.getLayers().getArray()[1].setSource(newVectorSource);
 
             map.updateSize();
 
