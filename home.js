@@ -374,7 +374,7 @@ function addMapMarkers(results){
     console.log(results);
         
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
-            var coord = [results['columns'][3][i],results['columns'][2][i]];
+            var coord = [Math.round(results['columns'][3][i]*100)/100,Math.round(results['columns'][2][i]*100)/100];
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
     console.log(coord +":"+ transformcoord);
             var feature = new ol.Feature({
@@ -420,7 +420,7 @@ function addMapMarkers(results){
             iconFeatures.push(iconFeature2);
 
             var newVectorSource = new ol.source.Vector({
-                features: iconFeatures
+                features: points
             });
 
             var newVectorLayer = new ol.layer.Vector({
