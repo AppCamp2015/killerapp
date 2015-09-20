@@ -477,6 +477,13 @@ return [new ol.style.Style({
         textAlign: 'left',
         font: 'bold 12 sans',
         scale: 0,
-        }) 
+        }),
+    image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+            })) 
 })];
 }
