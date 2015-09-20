@@ -470,18 +470,19 @@ function generateFeatureStyle(feature){
     
 return [new ol.style.Style({
     text: new ol.style.Text({
-        text: feature.get('country') + ": "+ feature.get('name'),
-        fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
-        stroke: new ol.style.Stroke({color: 'red', width: 1}),
+        text: feature.get('name'),
+        fill: new ol.style.Fill({color: 'white'}),
+        stroke: new ol.style.Stroke({color: 'white', width: 1}),
         textBaseLine: 'Middle',
-        textAlign: 'Left',
+        textAlign: 'Right',
         font: 'Bold 12px Arial',
         scale: 1,
+        offsetY: 10
         }),
     image:  new ol.style.Circle({
-        radius: 10,
+        radius: 5,
         fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
-        stroke: new ol.style.Stroke({color: 'red', width: 1})
+        stroke: new ol.style.Stroke({color: 'white', width: 1})
       }) 
 })];
 }
