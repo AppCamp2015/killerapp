@@ -96,6 +96,7 @@ function generateBBOX() {
 }
 
 function generateMap() {
+
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -111,9 +112,12 @@ function generateMap() {
         })
     });
 
+    var timer = setInterval(function(){
+        map.updateSize();
+    },200);
     setTimeout(function(){
-        map.updateSize();    
-    },10);
+        clearInterval(timer);
+    },2000);
 
     // a normal select interaction to handle click
     var select = new ol.interaction.Select();
