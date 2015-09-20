@@ -69,7 +69,7 @@ function handleSplunkJob(macroDef) {
 
     var search = macroDef.queryString;
     var cancelled = false;
-    service.oneshotSearch(
+    var request = service.oneshotSearch(
         search, {output_mode: macroDef.outputmode },
         function(err, results) {
             if (cancelled) {
@@ -79,6 +79,7 @@ function handleSplunkJob(macroDef) {
             macroDef.applyResults(results, err);
         }
     );
+    console.log(request);
     return function() {
         if (!cancelled) {
             cancelled = true;
