@@ -16,6 +16,8 @@ $('document').ready(function() {
     splunkMacros.push(new cityListMacro());
     splunkMacros.push(new twitterTopsMacro());
     loginToSplunk();
+
+    
 });
 
 function addSlider(sliderId) {
@@ -538,7 +540,7 @@ function addMapMarkers(results){
                 $(element).popover({
                   'placement': 'top',
                   'html': true,
-                  'content': feature.get('name')
+                  'content': function(){return queryCityHtmlContent(feature.get('name'),feature.get('country'));}
                 });
                 $(element).popover('show');
               } else {
@@ -592,4 +594,8 @@ function generateFeatureStyle(feature){
             stroke: new ol.style.Stroke({color: 'white', width: 1})
           }) */
     })];
+}
+
+function queryCityHtmlContent(name,country){
+    return name +" " + country;
 }
