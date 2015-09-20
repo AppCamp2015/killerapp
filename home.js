@@ -599,7 +599,7 @@ function generateFeatureStyle(feature){
 function queryCityHtmlContent(name,country){
     // return name +" " + country;
     handleSplunkJob(new macroDef(
-        "(| `city_details(" + name + "," + country + ")`)",
+        "( `city_details(" + name + "," + country + ")`)",
         function(results,err){
             console.log(results);
             $('#popup').removeClass('is-active');
