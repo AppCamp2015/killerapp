@@ -478,7 +478,8 @@ function addMapMarkers(results){
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 opacity: 0.75,
-                src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+                //src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+                src: 'images/screens_marker.png'
             }))
         });
 
