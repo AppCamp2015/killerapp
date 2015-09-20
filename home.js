@@ -563,6 +563,14 @@ function addMapMarkers(results){
             // pointSource.addFeatures(points);	
 };
 
+var mapMarkerIcon = new ol.style.Icon({
+    anchor: [0.5, 1],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'fraction',
+    opacity: 0.75,
+    //src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+    src: 'images/screens_marker.png'
+});
 
 function generateFeatureStyle(feature){
     
