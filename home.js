@@ -413,11 +413,14 @@ function addMapMarkers(results){
                 }))
             });
 
+            var iconFeatures = []
             iconFeature.setStyle(iconStyle);
             iconFeature2.setStyle(iconStyle);
+            iconFeatures.push(iconFeature);
+            iconFeatures.push(iconFeature2);
 
             var newVectorSource = new ol.source.Vector({
-                features: [iconFeature,iconFeature2]
+                features: iconFeatures
             });
 
             var newVectorLayer = new ol.layer.Vector({
@@ -425,6 +428,8 @@ function addMapMarkers(results){
             });
 
             map.addLayer(newVectorLayer);
+
+            map.updateSize();
 
             // map.getLayers().getArray()[2].setSource(pointSource);
             // pointSource.addFeatures(points);	
