@@ -13,10 +13,8 @@ $('document').ready(function() {
     addSlider('slider-range-crime');
     addSlider('slider-range-urbanness');
     addSlider('slider-range-greenness');
-    
     splunkMacros.push(new cityListMacro());
     splunkMacros.push(new twitterTopsMacro());
-
     loginToSplunk();
 });
 
@@ -381,10 +379,7 @@ function greenChartMacro() {
 }
 
 function twitterTopsMacro() {
-    var words=[];//[{"text":'bla',"weight":1},{"text":"bla","weight":2},{"text":'blub',"weight":3}];
-    $('#twittertagcloud').jQCloud(words,{
-        autoResize: true
-    });
+    $('#twittertagcloud').jQCloud();
     $('#twitter_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
@@ -398,8 +393,8 @@ function twitterTopsMacro() {
                 words=[];
             }else{
                 words = results.rows.map(function(r){
-                    return {"text":r[0],"weight":r[1]};
-                });
+                        return {"text":r[0],"weight":r[1]};
+                    });
             }
             $('#twittertagcloud').jQCloud("update", words);
         }, function(){
@@ -461,7 +456,7 @@ function createMacro(sliderName) {
             console.log('no valid slider provided');
             break;
     }
-}
+};
 
 function addMapMarkers(results){
 
@@ -471,6 +466,17 @@ function addMapMarkers(results){
     }
     var points = [];
 
+        var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+            }))
+        });
+
+        
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
             var coord = [Math.round(results['columns'][3][i]*100)/100,Math.round(results['columns'][2][i]*100)/100];
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
@@ -478,36 +484,85 @@ function addMapMarkers(results){
                     geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]]),
                     name: results['columns'][1][i],
                     country: results['columns'][0][i]
-                    });
+                    })
             feature.setStyle(generateFeatureStyle(feature));
                 points.push(feature);
-    }
-    // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
-    // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
+                }
+         // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
+            // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
+            // var iconFeature = new ol.Feature({
+            //   geometry: new ol.geom.Point([0, 0]),
+            //   name: 'Null Island',
+            //   population: 4000,
+            //   rainfall: 500
+            // });
 
-    var newVectorSource = new ol.source.Vector({
-        features: points
-    });
+            // var iconFeature2 = new ol.Feature({
+            //   geometry: new ol.geom.Point([0, 10000]),
+            //   name: 'Null Island 2',
+            //   population: 4000,
+            //   rainfall: 500
+            // });
 
-    var newVectorLayer = new ol.layer.Vector({
-        source: newVectorSource
-    });
-    map.getLayers().getArray()[1].setSource(newVectorSource);
+            // iconFeature.setStyle(iconStyle);
+            // iconFeature2.setStyle(iconStyle);
 
-    map.updateSize();
+            var newVectorSource = new ol.source.Vector({
+                features: points
+            });
+            console.log('adding layer');
+            console.log(newVectorSource);
+            var newVectorLayer = new ol.layer.Vector({
+                source: newVectorSource
+            });
+            map.getLayers().getArray()[1].setSource(newVectorSource);
 
-    // map.getLayers().getArray()[2].setSource(pointSource);
-    // pointSource.addFeatures(points);
-}
+            var element = document.getElementById('popup');
 
-var mapMarkerIcon = new ol.style.Icon({
-    anchor: [0.5, 1],
-    anchorXUnits: 'fraction',
-    anchorYUnits: 'fraction',
-    opacity: 0.75,
-    //src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
-    src: 'images/screens_marker.png'
-});
+            var popup = new ol.Overlay({
+              element: element,
+              positioning: 'bottom-center',
+              stopEvent: false
+            });
+
+            map.addOverlay(popup);
+
+            // display popup on click
+            map.on('click', function(evt) {
+              var feature = map.forEachFeatureAtPixel(evt.pixel,
+                  function(feature, layer) {
+                    return feature;
+                  });
+              if (feature) {
+                popup.setPosition(evt.coordinate);
+                $(element).popover({
+                  'placement': 'top',
+                  'html': true,
+                  'content': feature.get('name')
+                });
+                $(element).popover('show');
+              } else {
+                $(element).popover('destroy');
+              }
+            });
+
+            // change mouse cursor when over marker
+            map.on('pointermove', function(e) {
+              if (e.dragging) {
+                $(element).popover('destroy');
+                return;
+              }
+              var pixel = map.getEventPixel(e.originalEvent);
+              var hit = map.hasFeatureAtPixel(pixel);
+              document.getElementById(map.getTarget()).style.cursor = hit ? 'pointer' : '';
+            });
+
+            map.updateSize();
+
+            // map.getLayers().getArray()[2].setSource(pointSource);
+            // pointSource.addFeatures(points);	
+};
+
 
 function generateFeatureStyle(feature){
     
