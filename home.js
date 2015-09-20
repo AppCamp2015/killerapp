@@ -107,7 +107,8 @@ function generateMap() {
         layers: [
             new ol.layer.Tile({
                 source: new ol.source.MapQuest({
-                    layer: 'sat'
+                    layer: 'sat',
+
                 }),
             }),
             new ol.layer.Vector({})
@@ -418,7 +419,7 @@ function addMapMarkers(results){
                     name: results['columns'][1][i],
                     country: results['columns'][0][i]
                     })
-            feature.setStyle(iconStyle);
+            feature.setStyle(generateFeatureStyle(feature));
                 points.push(feature);
                 }
         // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
@@ -437,7 +438,42 @@ function addMapMarkers(results){
 
             // map.getLayers().getArray()[2].setSource(pointSource);
             // pointSource.addFeatures(points);	
+};
 
-        };
 
+// var createLineStyleFunction = function() {
+//   return function(feature, resolution) {
+//     var style = new ol.style.Style({
+//       stroke: new ol.style.Stroke({
+//         color: 'green',
+//         width: 2
+//       }),
+//       text: createTextStyle(feature, resolution, myDom.lines)
+//     });
+//     return [style];
+//   };
+// };
 
+// new ol.style.Text({
+//     textAlign: align,
+//     textBaseline: baseline,
+//     font: font,
+//     text: getText(feature, resolution, dom),
+//     fill: new ol.style.Fill({color: fillColor}),
+//     stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
+//     offsetX: offsetX,
+//     offsetY: offsetY,
+//     rotation: rotation
+//   });
+
+function generateFeatureStyle(feature){
+    return new ol.style.Text({
+    text: feature.get('country') + ": "+ feature.get('name'),
+    fill: new ol.style.Fill({color: 'red'}),
+    stroke: new ol.style.Stroke({color: 'red', width: '1'}),
+    textBaseLine: 'middle',
+    textAlign: 'left',
+    font: 'bold 12 sans',
+    scale: 0,
+  });
+}
