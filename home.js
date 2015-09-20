@@ -462,7 +462,7 @@ function createMacro(sliderName) {
             console.log('no valid slider provided');
             break;
     }
-};
+}
 
 function addMapMarkers(results){
 
