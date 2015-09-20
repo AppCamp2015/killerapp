@@ -378,7 +378,7 @@ function addMapMarkers(results){
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
     console.log(coord +":"+ transformcoord);
             var feature = new ol.Feature({
-                    geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]*-1]),
+                    geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]]),
                     name: results['columns'][1][i],
                     country: results['columns'][0][i]
                     })
