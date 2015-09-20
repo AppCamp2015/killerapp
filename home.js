@@ -1,5 +1,4 @@
 var splunklogin = false;
-var runningjobs = null;
 var currentJobs = [];
 var map;
 var splunkMacros = [];
@@ -8,7 +7,7 @@ var sliders = {};
 $('document').ready(function() {
 
     loginToSplunk();
-    console.log("document ready fired");
+
     generateMap();
     addSlider($('#slider-range-health'), $('#healthRateValue'));
     addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
@@ -22,32 +21,6 @@ $('document').ready(function() {
     $('#twittertagcloud').jQCloud();
 
 });
-
-
-
-function splunkSearch() {
-
-    var obj = {};
-    var objects = $('.rangeFilter');
-
-    obj['queryName'] = document.getElementById('searchName').value;
-
-
-    for (var i = 0; i < objects.length; i++) {
-        console.log(i);
-        var id = objects[i].getAttribute('id');
-        var value = objects[i].value;
-
-        obj[id] = value / 100;
-    };
-    console.log('object for splunk search:', obj);
-    console.log(generateBBOX());
-    if (splunklogin == true) {
-        executeSplunk();
-    } else {
-        loginToSplunk();
-    }
-}
 
 function addSlider(sliderId, valueId) {
 
@@ -82,7 +55,7 @@ function loginToSplunk() {
     http = new splunkjs.ProxyHttp("/proxy");
     service = new splunkjs.Service(http, {
         username: "esa",
-        password: "esa",
+        password: "esa"
     });
 
     try{
@@ -93,6 +66,8 @@ function loginToSplunk() {
             }
             console.log("Login was successful: " + success);
             splunklogin = true;
+
+            executeSplunk();
         });
     } catch(e){
         console.log(e);
@@ -110,7 +85,7 @@ function handleSplunkJob(macroDef) {
         function(err, results) {
             if (cancelled) {
                 return
-            };
+            }
             if(err){console.log(err);}
             macroDef.applyResults(results, err);
         }
@@ -120,7 +95,7 @@ function handleSplunkJob(macroDef) {
             cancelled = true;
         }
     }
-};
+}
 
 function generateBBOX() {
     var view = map.getView();
@@ -129,11 +104,10 @@ function generateBBOX() {
     var topRight = ol.proj.toLonLat([extent[2], extent[3]]);
 
     return bottomLeft.concat(topRight);
-
-};
+}
 
 function generateMap() {
-    console.log('generating map');
+
     var vectorSource = new ol.source.Vector({
         url: 'assets/countries.geo.json',
         format: new ol.format.GeoJSON()
@@ -168,13 +142,8 @@ function generateMap() {
     map.addInteraction(select);
 
     map.on('moveend', (function() {
-        if (splunklogin == true) {
-            executeSplunk();
-        } else {
-            loginToSplunk();
-        }
-
-    }))
+        executeSplunk();
+    }));
 
     var selectedFeatures = select.getFeatures();
 
@@ -207,11 +176,13 @@ function generateMap() {
             infoBox.innerHTML = info.join(', ');
         }
     });
-
-
-};
+}
 
 function executeSplunk() {
+    if(!splunklogin){
+        return;
+    }
+
     // get the value of the search div
     currentJobs.forEach(function(job) {
         job();
@@ -224,7 +195,7 @@ function executeSplunk() {
         var macroDef = macro.getMacroDef();
         currentJobs.push(handleSplunkJob(macroDef));
     });
-};
+}
 
 function generateQueryString(chartName, macro) {
     return " `" + chartName + "(" +
@@ -268,7 +239,7 @@ function pollutionChartMacro() {
             $("#pollutionchartloading").show();
         });
     }
-};
+}
 
 function healthChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#healthchart"), splunkjs.UI.Charting.ChartType.COLUMN, false);
@@ -295,7 +266,7 @@ function healthChartMacro() {
             $("#healthchartloading").show();
         });
     }
-};
+}
 
 function crimeChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#crimechart"), splunkjs.UI.Charting.ChartType.AREA, false);
