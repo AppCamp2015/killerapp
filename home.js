@@ -441,36 +441,34 @@ function addMapMarkers(results){
 };
 
 
-var createLineStyleFunction = function() {
-  return function(feature, resolution) {
-    var style = new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color: 'green',
-        width: 2
-      }),
-      text: createTextStyle(feature, resolution, myDom.lines)
-    });
-    return [style];
-  };
-};
+// var createLineStyleFunction = function() {
+//   return function(feature, resolution) {
+//     var style = new ol.style.Style({
+//       stroke: new ol.style.Stroke({
+//         color: 'green',
+//         width: 2
+//       }),
+//       text: createTextStyle(feature, resolution, myDom.lines)
+//     });
+//     return [style];
+//   };
+// };
 
-new ol.style.Text({
-    textAlign: align,
-    textBaseline: baseline,
-    font: font,
-    text: getText(feature, resolution, dom),
-    fill: new ol.style.Fill({color: fillColor}),
-    stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
-    offsetX: offsetX,
-    offsetY: offsetY,
-    rotation: rotation
-  });
+// new ol.style.Text({
+//     textAlign: align,
+//     textBaseline: baseline,
+//     font: font,
+//     text: getText(feature, resolution, dom),
+//     fill: new ol.style.Fill({color: fillColor}),
+//     stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
+//     offsetX: offsetX,
+//     offsetY: offsetY,
+//     rotation: rotation
+//   });
 
 function generateFeatureStyle(feature){
     return new ol.style.Text({
-    textAlign: align,
-    textBaseline: baseline,
-    font: font,
+    textAlign: 'left',
     text: feature.get('country') + ": "+ feature.get('name'),
     fill: new ol.style.Fill({color: 'red'}),
     stroke: new ol.style.Stroke({color: 'red', width: '1'}),
