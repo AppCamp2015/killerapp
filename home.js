@@ -470,7 +470,7 @@ function cityListMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-                loading.css('display','none');
+                mapLoading.css('display','none');
                 if(err){
                     addMapMarkers([]);
                 }else{
