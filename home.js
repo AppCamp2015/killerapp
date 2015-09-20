@@ -597,7 +597,7 @@ function generateFeatureStyle(feature){
 }
 
 function queryCityHtmlContent(name,country){
-    var id=''+Math.random();
+    var id=''+parseInt(Math.random()*1000);
     // return name +" " + country;
     handleSplunkJob(new macroDef(
         "`city_details(" + name + "," + country + ")`",
