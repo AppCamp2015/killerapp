@@ -477,6 +477,6 @@ return new ol.style.Style({
         textAlign: 'left',
         font: 'bold 12 sans',
         scale: 0,
-        }); 
+        }) 
 });
 }
