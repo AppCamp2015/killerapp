@@ -168,10 +168,11 @@ function splunkMacro(bbox, sliderValues) {
     this.minLong = bbox[0];
     this.maxLong = bbox[2];
     this.sliderValues = sliderValues;
-};
+}
 
 function pollutionChartMacro() {
-    var chart = new splunkjs.UI.Charting.Chart($("#pollutionchart"), splunkjs.UI.Charting.ChartType.COLUMN, false);
+    var $el=$("#pollutionchart");
+    var chart = new splunkjs.UI.Charting.Chart($el, splunkjs.UI.Charting.ChartType.COLUMN, false);
     var chartMode = {
         "chart.stackMode": "stacked",
         "chart.style": "shiny",
@@ -184,6 +185,16 @@ function pollutionChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
+    var loading=$("#pollutionchartloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('pollution_chart', macro);
@@ -191,19 +202,26 @@ function pollutionChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            $("#pollutionchartloading").hide();
-            chart.setData(results, chartMode);
+            loading.hide();
+            if(err){
+                chart.setData({
+                    fields: [],
+                    columns: []
+                }, chartMode);
+            }else{
+                chart.setData(results, chartMode);
+            }
             chart.draw();
         }, function() {
-
-            $("#pollutionchartloading").show();
+            showLoading();
         });
     }
 }
 
 function healthChartMacro() {
+    var $el=$("#healthchart");
     var chart = new splunkjs.UI.Charting.Chart(
-        $("#healthchart"),
+        $el,
         splunkjs.UI.Charting.ChartType.COLUMN,
         false);
     var chartMode = {
@@ -220,6 +238,16 @@ function healthChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
+    var loading=$("#healthchartloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('health_chart', macro);
@@ -227,11 +255,18 @@ function healthChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            $("#healthchartloading").hide();
-            chart.setData(results, chartMode);
+            loading.hide();
+            if(err){
+                chart.setData({
+                    fields: [],
+                    columns: []
+                }, chartMode);
+            }else{
+                chart.setData(results, chartMode);
+            }
             chart.draw();
         }, function(){
-            $("#healthchartloading").show();
+            showLoading();
         });
     }
 }
@@ -250,6 +285,16 @@ function crimeChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
+    var loading=$("#crimechartloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('crime_chart', macro);
@@ -257,15 +302,21 @@ function crimeChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            $("#crimechartloading").hide();
-            chart.setData(results, chartMode);
+            loading.hide();
+            if(err){
+                chart.setData({
+                    fields: [],
+                    columns: []
+                }, chartMode);
+            }else{
+                chart.setData(results, chartMode);
+            }
             chart.draw();
         }, function() {
-            $("#crimechartloading").show();
+            showLoading();
         });
     }
-
-};
+}
 
 function urbanChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#urbanchart"), splunkjs.UI.Charting.ChartType.PIE, false);
@@ -276,6 +327,16 @@ function urbanChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
+    var loading=$("#urbanchartloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('urbanness_chart', macro);
@@ -283,15 +344,21 @@ function urbanChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            $("#urbanchartloading").hide();
-            chart.setData(results, chartMode);
+            loading.hide();
+            if(err){
+                chart.setData({
+                    fields: [],
+                    columns: []
+                }, chartMode);
+            }else{
+                chart.setData(results, chartMode);
+            }
             chart.draw();
         }, function() {
-            $("#urbanchartloading").show();
+            showLoading();
         });
     }
-
-};
+}
 
 function greenChartMacro() {
     var chart = new splunkjs.UI.Charting.Chart($("#greenchart"), splunkjs.UI.Charting.ChartType.PIE, false);
@@ -302,6 +369,16 @@ function greenChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
+    var loading=$("#greenchartloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('greenness_chart', macro);
@@ -309,17 +386,34 @@ function greenChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            chart.setData(results, chartMode);
+            loading.hide();
+            if(err){
+                chart.setData({
+                    fields: [],
+                    columns: []
+                }, chartMode);
+            }else{
+                chart.setData(results, chartMode);
+            }
             chart.draw();
         }, function(){
-
+            showLoading();
         });
     }
-};
+}
 
 function twitterTopsMacro() {
     $('#twittertagcloud').jQCloud();
-
+    var loading=$("#twittertagcloudloading");
+    var showLoading=function(){
+        loading.css("float", "right");
+        //e.css("position", "absolute");
+        //e.css("left", $el.position().left+$el.width()/2);
+        //e.css("top", $el.position().top+$el.height()/3);
+        //e.css("z-index", 100);
+        loading.show();
+    };
+    showLoading();
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('twitter', macro);
@@ -327,12 +421,17 @@ function twitterTopsMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            words = results.rows.map(function(r){
-                    return {"text":r[0],"weight":r[1]};
-                });
+            loading.hide();
+            if(err){
+                words=[];
+            }else{
+                words = results.rows.map(function(r){
+                        return {"text":r[0],"weight":r[1]};
+                    });
+            }
             $('#twittertagcloud').jQCloud("update", words);
-
         }, function(){
+            showLoading();
         },
         "json_rows");
     }

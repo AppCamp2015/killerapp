@@ -45,7 +45,7 @@
           <input id="slider-range-crime" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="1"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_pollution.png" height="32px" width="32px">Pollution</p>
           <input id="slider-range-pollution" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="2"/>
-          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_social.png" height="32px" width="32px">Urban Coverage</p>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/whitebuilding32.png" height="32px" width="32px">Urban Coverage</p>
           <input id="slider-range-urbanness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="3"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_greenness.png" height="32px" width="32px">Green Coverage</p>
           <input id="slider-range-greenness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="4"/>
@@ -57,6 +57,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_pollution_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Pollution</h2>
+              <img id="pollutionchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div>
               <div id="pollutionchart"></div>
@@ -66,6 +67,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_health_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Health</h2>
+              <img id="healthchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="healthchart"></div>
           </div>
@@ -73,13 +75,15 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_greenness_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Green</h2>
+              <img id="greenchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="greenchart"></div>
           </div>
           <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid" style="padding: 1em;">
             <div style="white-space: nowrap; width: 100%;">
-              <img src="images/screens_greenness_inverted.png" width="32" height="32">
+              <img src="images/blackbuilding32.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Urban</h2>
+              <img id="urbanchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="urbanchart"></div>
           </div>
@@ -87,6 +91,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_social_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Crime</h2>
+              <img id="crimechartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="crimechart"></div>
           </div>
@@ -94,6 +99,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_social_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Social</h2>
+              <img id="twittertagcloudloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="twittertagcloud" style="width:100%; height:400px"></div>
           </div>
