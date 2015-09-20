@@ -102,8 +102,9 @@ function generateMap() {
             new ol.layer.Tile({
                 source: new ol.source.MapQuest({
                     layer: 'sat'
-                })
-            })
+                }),
+            }),
+            new ol.layer.Vector({})
         ],
         view: new ol.View({
             center: ol.proj.transform([18, 48], 'EPSG:4326', 'EPSG:3857'),
@@ -426,8 +427,7 @@ function addMapMarkers(results){
             var newVectorLayer = new ol.layer.Vector({
                 source: newVectorSource
             });
-
-            map.addLayer(newVectorLayer);
+            map.getLayers().toArray()[1].updateSource(newVectorSource);
 
             map.updateSize();
 
