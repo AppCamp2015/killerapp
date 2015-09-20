@@ -382,7 +382,8 @@ function greenChartMacro() {
 }
 
 function twitterTopsMacro() {
-    $('#twittertagcloud').jQCloud([],{
+    var words=[];//[{"text":'bla',"weight":1},{"text":"bla","weight":2},{"text":'blub',"weight":3}];
+    $('#twittertagcloud').jQCloud(words,{
         autoResize: true
     });
     $('#twitter_load').addClass('is-active');
@@ -390,7 +391,6 @@ function twitterTopsMacro() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('twitter', macro);
     };
-    var words=[];
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
