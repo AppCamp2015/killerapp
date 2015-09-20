@@ -605,9 +605,11 @@ function queryCityHtmlContent(name,country){
             if(err) return;
             console.log(results);
             var tbody=$("#"+id+"");
-            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
-            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
-            tbody.append($('<tr><td>dfvdfb</td><td>dfdf</td>/tr>'));
+            results.columns[0].forEach(function(e,i){
+                var type=results.columns[0][i];
+                var value=results.columns[1][i];
+                tbody.append($('<tr><td>'+type+'</td><td>'+value+'</td>/tr>'));
+            });
             //$('#popup').removeClass('is-active');
             //$('#popup').removeClass('mdl-spinner');
             //$('#popup').removeClass('mdl-js-spinner');
