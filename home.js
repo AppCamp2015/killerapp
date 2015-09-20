@@ -152,11 +152,6 @@ function generateBBOX() {
 
 function generateMap() {
     console.log('generating map');
-    var vectorSource = new ol.source.Vector({
-        url: 'assets/countries.geo.json',
-        format: new ol.format.GeoJSON()
-    });
-
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -164,11 +159,6 @@ function generateMap() {
                 source: new ol.source.MapQuest({
                     layer: 'sat'
                 })
-            }),
-            new ol.layer.Vector({
-                source: vectorSource
-
-
             })
         ],
         view: new ol.View({
