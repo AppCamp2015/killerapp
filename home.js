@@ -474,10 +474,11 @@ return [new ol.style.Style({
         fill: new ol.style.Fill({color: 'white'}),
         stroke: new ol.style.Stroke({color: 'white', width: 1}),
         textBaseLine: 'Middle',
-        textAlign: 'Right',
+        textAlign: 'Center',
         font: 'Bold 12px Arial',
         scale: 1,
-        offsetY: 10
+        offsetY: 20
+
         }),
     image:  new ol.style.Circle({
         radius: 5,
