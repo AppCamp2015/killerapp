@@ -471,19 +471,17 @@ function generateFeatureStyle(feature){
 return [new ol.style.Style({
     text: new ol.style.Text({
         text: feature.get('country') + ": "+ feature.get('name'),
-        fill: new ol.style.Fill({color: 'red'}),
-        stroke: new ol.style.Stroke({color: 'red', width: '1'}),
+        fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
+        stroke: new ol.style.Stroke({color: 'red', width: 1}),
         textBaseLine: 'middle',
         textAlign: 'left',
         font: 'bold 12 sans',
         scale: 0,
         }),
-    image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-                anchor: [0.5, 46],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                opacity: 0.75,
-                src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
-            })) 
+    image:  new ol.style.Circle({
+        radius: 10,
+        fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
+        stroke: new ol.style.Stroke({color: 'red', width: 1})
+      }) 
 })];
 }
