@@ -518,7 +518,7 @@ function generateFeatureStyle(feature){
             fill: new ol.style.Fill({color: 'white'}),
             stroke: new ol.style.Stroke({color: 'white', width: 1}),
             textBaseLine: 'Middle',
-            align: 'Center',
+            textAlign: 'center',
             font: 'Bold 12px Arial',
             scale: 1,
             offsetY: 20
