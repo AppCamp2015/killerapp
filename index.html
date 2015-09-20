@@ -31,25 +31,8 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Home</span>
-          <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-              <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search" />
-              <label class="mdl-textfield__label" for="search">Enter your query...</label>
-            </div>
-          </div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
-          </ul>
+          <!-- map goes here -->
+          Empty
         </div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -57,18 +40,16 @@
           <img src="images/screens_applogo-single-grey.png" class="demo-avatar">
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_health.png" height="32px" width="32px">Health</p>
           <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0"/>
-          <div class="mdl-layout-spacer"></div>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_crime.png" height="32px" width="32px">Crime</p>
           <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="1"/>
-          <div class="mdl-layout-spacer"></div>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_pollution.png" height="32px" width="32px">Pollution</p>
           <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="2"/>
-          <div class="mdl-layout-spacer"></div>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_social.png" height="32px" width="32px">Social</p>
           <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="3"/>
-          <div class="mdl-layout-spacer"></div>
+          <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_greenness.png" height="32px" width="32px">Green Index</p>
           <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="4"/>
-          <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -144,8 +125,7 @@
               </div>
               <div class="mdl-card__actions mdl-card--border">
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">Change location</a>
-                <div class="mdl-layout-spacer"></div>
-                <i class="material-icons">location_on</i>
+                      <i class="material-icons">location_on</i>
               </div>
             </div>
           </div>

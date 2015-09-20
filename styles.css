@@ -93,7 +93,7 @@ html, body {
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
-.demo-layout .demo-navigation .mdl-navigation__link {
+.demo-layout .demo-navigation .mdl-navigation__text {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -109,15 +109,16 @@ html, body {
           align-items: center;
   color: rgba(255, 255, 255, 0.56);
   font-weight: 500;
+  padding-top: 1em;
+  margin-bottom: 0.3em;
 }
-.demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #00BCD4;
-  color: #37474F;
-}
-.demo-navigation .mdl-navigation__link .material-icons {
+
+.demo-navigation .mdl-navigation__text .material-icons {
   font-size: 24px;
   color: rgba(255, 255, 255, 0.56);
-  margin-right: 32px;
+  margin-right: 1em;
+  padding-left: 1em;
+  background-image: url('images/screens_crime.png');
 }
 
 .demo-content {
