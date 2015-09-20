@@ -72,6 +72,7 @@ function handleSplunkJob(macroDef) {
     var request = service.oneshotSearch(
         search, {output_mode: macroDef.outputmode },
         function(err, results) {
+            request=null;
             if (cancelled) {
                 return
             }
@@ -79,10 +80,17 @@ function handleSplunkJob(macroDef) {
             macroDef.applyResults(results, err);
         }
     );
-    console.log(request);
+
     return function() {
         if (!cancelled) {
             cancelled = true;
+            if(request!=null){
+                try{
+                    console.log("abourting request");
+                    request.abort();
+                }catch(e){
+                }
+            }
         }
     }
 }
