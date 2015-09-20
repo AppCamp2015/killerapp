@@ -599,8 +599,9 @@ function generateFeatureStyle(feature){
 function queryCityHtmlContent(name,country){
     // return name +" " + country;
     handleSplunkJob(new macroDef(
-        "( `city_details(" + name + "," + country + ")`)",
+        "`city_details(" + name + "," + country + ")`",
         function(results,err){
+            if(err) return;
             console.log(results);
             $('#popup').removeClass('is-active');
             $('#popup').removeClass('mdl-spinner');
@@ -610,9 +611,7 @@ function queryCityHtmlContent(name,country){
             $('#popup').addClass('mdl-spinner');
             $('#popup').addClass('mdl-js-spinner');
             $('#popup').addClass('is-active');
-        }, // loading implementation
-        function(){} // outputmode impl
-
+        } // outputmode impl
         ));
     return "Success";
 }
