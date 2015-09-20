@@ -21,6 +21,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="material.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="ol.css">
@@ -31,8 +32,7 @@
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div id="mapholder" class="mdl-layout__header-row" style="padding:0;height:300px">
           <!-- map goes here -->
-          <div id="map" style="width:100%;height:100%;"></div>
-          <img id="maploading" src="images/loadingindicator.gif" width="32" height="32" style="display: none; position: absolute; top: 0; right: 0; padding: 10px;">
+          <div id="map" style="width:100%;height:100%;"></div><div id="popup"></div>
         </div>
         <div id="city_load" class="mdl-spinner mdl-js-spinner"></div>
       </header>
@@ -120,6 +120,7 @@
     </div>
     <script src="material.min.js"></script>
     <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="ol.js"></script>
     <script src="home.js"></script>
     <script type="text/javascript" src="splunk_client/splunk.js"></script>
