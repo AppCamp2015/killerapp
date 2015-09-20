@@ -159,6 +159,10 @@ function generateMap() {
         })
     });
 
+    setTimeout(function(){
+        map.updateSize();    
+    },1);
+
     // a normal select interaction to handle click
     var select = new ol.interaction.Select();
     map.addInteraction(select);
