@@ -6,8 +6,6 @@ var sliders = {};
 
 $('document').ready(function() {
 
-    loginToSplunk();
-
     generateMap();
     // addSlider($('#slider-range-health'), $('#healthRateValue'));
     // addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
@@ -22,10 +20,10 @@ $('document').ready(function() {
     
     splunkMacros.push(new cityListMacro());
     // splunkMacros.push(new twitterTopsMacro());
-    executeSplunk();
 
     $('#twittertagcloud').jQCloud();
 
+    loginToSplunk();
 });
 
 function addSlider(sliderId) {
@@ -41,31 +39,6 @@ function addSlider(sliderId) {
         sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
         executeSplunk();
     });
-    // var sliderId = sliderId;
-    // var valueId = valueId;
-    // $(sliderId).slider({
-    //     range: true,
-    //     min: 0,
-    //     max: 100,
-    //     values: [0, 100],
-    //     create: function(event, ui) {
-    //         sliders[sliderId[0].id] = {};
-    //         sliders[sliderId[0].id]['min'] = 0;
-    //         sliders[sliderId[0].id]['max'] = 1;
-    //         createMacro(sliderId[0].id);
-    //     },
-    //     slide: function(event, ui) {
-    //         $(valueId).val(ui.values[0] + "% - " + ui.values[1] + "%");
-    //     },
-    //     change: function(event, ui) {
-    //         sliders[sliderId[0].id]['min'] = ui.values[0] / 100;
-    //         sliders[sliderId[0].id]['max'] = ui.values[1] / 100;
-    //         executeSplunk();
-
-    //     }
-    // });
-    // $(valueId).val($(sliderId).slider("values", 0) +
-    //     "% - " + $(sliderId).slider("values", 1) + "%");
 }
 
 function loginToSplunk() {
@@ -92,7 +65,6 @@ function loginToSplunk() {
 }
 
 function handleSplunkJob(macroDef) {
-
     macroDef.startLoading();
 
     var search = macroDef.queryString;
@@ -124,16 +96,6 @@ function generateBBOX() {
 }
 
 function generateMap() {
-<<<<<<< HEAD
-
-    var vectorSource = new ol.source.Vector({
-        url: 'assets/countries.geo.json',
-        format: new ol.format.GeoJSON()
-    });
-
-=======
-    console.log('generating map');
->>>>>>> 5b1163b5f2c3235d23ebd931b995fab12aa5f3b2
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -160,38 +122,6 @@ function generateMap() {
     map.on('moveend', (function() {
         executeSplunk();
     }));
-
-    var selectedFeatures = select.getFeatures();
-
-    // a DragBox interaction used to select features by drawing boxes
-    var dragBox = new ol.interaction.DragBox({
-        condition: ol.events.condition.shiftKeyOnly,
-        style: new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color: [0, 0, 255, 1]
-            })
-        })
-    });
-
-    map.addInteraction(dragBox);
-
-    var infoBox = document.getElementById('info');
-
-    dragBox.on('boxend', function(e) {
-        // features that intersect the box are added to the collection of
-        // selected features, and their names are displayed in the "info"
-        // div
-        var info = [];
-        var extent = dragBox.getGeometry().getExtent();
-        console.log(extent);
-        vectorSource.forEachFeatureIntersectingExtent(extent, function(feature) {
-            selectedFeatures.push(feature);
-            info.push(feature.get('name'));
-        });
-        if (info.length > 0) {
-            infoBox.innerHTML = info.join(', ');
-        }
-    });
 }
 
 function executeSplunk() {
