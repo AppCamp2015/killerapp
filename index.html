@@ -34,6 +34,7 @@
           <div id="map" style="width:100%;height:100%;"></div>
           <img id="maploading" src="images/loadingindicator.gif" width="32" height="32" style="display: none; position: absolute; top: 0; right: 0; padding: 10px;">
         </div>
+        <div id="city_load" class="mdl-spinner mdl-js-spinner"></div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
@@ -62,6 +63,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_pollution_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Pollution</h2>
+              <div id="poll_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="pollutionchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div style="width: 100%">
@@ -72,6 +74,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_health_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Health</h2>
+              <div id="health_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="healthchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div style="width: 100%" id="healthchart"></div>
@@ -80,6 +83,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_greenness_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Green</h2>
+              <div id="green_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="greenchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div style="width: 100%" id="greenchart"></div>
@@ -88,6 +92,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/blackbuilding32.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Urban</h2>
+              <div id="urban_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="urbanchartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div style="width: 100%" id="urbanchart"></div>
@@ -96,6 +101,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_social_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Crime</h2>
+              <div id="crime_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="crimechartloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div style="width: 100%" id="crimechart"></div>
@@ -104,6 +110,7 @@
             <div style="white-space: nowrap; width: 100%;">
               <img src="images/screens_social_inverted.png" width="32" height="32">
               <h2 style="display: inline-block; margin: 0; padding: 0; font-size: 16px; vertical-align: baseline;">Social</h2>
+              <div id="twitter_load" class="mdl-spinner mdl-js-spinner"></div>
               <img id="twittertagcloudloading" src="images/loadingindicator.gif" width="32" height="32" style="display: none;">
             </div>
             <div id="twittertagcloud" style="width:100%; height:400px"></div>
