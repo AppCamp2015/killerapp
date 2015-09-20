@@ -158,7 +158,6 @@ function executeSplunk() {
     if(!splunklogin){
         return;
     }
-    console.log("executing splunk");
 
     // get the value of the search div
     currentJobs.forEach(function(job) {
