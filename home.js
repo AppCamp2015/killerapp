@@ -103,8 +103,9 @@ function generateMap() {
             new ol.layer.Tile({
                 source: new ol.source.MapQuest({
                     layer: 'sat'
-                })
-            })
+                }),
+            }),
+            new ol.layer.Vector({})
         ],
         view: new ol.View({
             center: ol.proj.transform([18, 48], 'EPSG:4326', 'EPSG:3857'),
@@ -375,14 +376,12 @@ function addMapMarkers(results){
             }))
         });
 
-    console.log(results);
         
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
-            var coord = [results['columns'][3][i],results['columns'][2][i]];
+            var coord = [Math.round(results['columns'][3][i]*100)/100,Math.round(results['columns'][2][i]*100)/100];
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
-    console.log(coord +":"+ transformcoord);
             var feature = new ol.Feature({
-                    geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]*-1]),
+                    geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]]),
                     name: results['columns'][1][i],
                     country: results['columns'][0][i]
                     })
@@ -392,46 +391,14 @@ function addMapMarkers(results){
         // the vector source for the marker layer is defined by map.getLayers()[2].getSource();
             // the source can be set by map.getLayers()[2].setSource( ol.source.Vector type)
 
-
-            var iconFeature = new ol.Feature({
-                geometry: new ol.geom.Point([0, 0]),
-                name: 'Null Island',
-                population: 4000,
-                rainfall: 500
-            });
-
-            var iconFeature2 = new ol.Feature({
-                geometry: new ol.geom.Point(ol.proj.transform([0, 10], 'EPSG:4326', 'EPSG:3857')),
-                name: 'Null Island',
-                population: 4000,
-                rainfall: 500
-            });
-
-            var iconStyle = new ol.style.Style({
-                image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-                    anchor: [0.5, 46],
-                    anchorXUnits: 'fraction',
-                    anchorYUnits: 'pixels',
-                    opacity: 0.75,
-                    src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
-                }))
-            });
-
-            var iconFeatures = []
-            iconFeature.setStyle(iconStyle);
-            iconFeature2.setStyle(iconStyle);
-            iconFeatures.push(iconFeature);
-            iconFeatures.push(iconFeature2);
-
             var newVectorSource = new ol.source.Vector({
-                features: iconFeatures
+                features: points
             });
 
             var newVectorLayer = new ol.layer.Vector({
                 source: newVectorSource
             });
-
-            map.addLayer(newVectorLayer);
+            map.getLayers().getArray()[1].setSource(newVectorSource);
 
             map.updateSize();
 
