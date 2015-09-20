@@ -9,46 +9,63 @@ $('document').ready(function() {
     loginToSplunk();
 
     generateMap();
-    addSlider($('#slider-range-health'), $('#healthRateValue'));
-    addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
-    addSlider($('#slider-range-crime'), $('#crimeRateValue'));
-    addSlider($('#slider-range-urbanness'), $('#urbannessRateValue'));
-    addSlider($('#slider-range-greenness'), $('#greennessRateValue'));
+    // addSlider($('#slider-range-health'), $('#healthRateValue'));
+    // addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
+    // addSlider($('#slider-range-crime'), $('#crimeRateValue'));
+    // addSlider($('#slider-range-urbanness'), $('#urbannessRateValue'));
+    // addSlider($('#slider-range-greenness'), $('#greennessRateValue'));
+    addSlider('slider-range-health');
+    addSlider('slider-range-pollution');
+    addSlider('slider-range-crime');
+    addSlider('slider-range-urbanness');
+    addSlider('slider-range-greenness');
+    
     splunkMacros.push(new cityListMacro());
-    splunkMacros.push(new twitterTopsMacro());
+    // splunkMacros.push(new twitterTopsMacro());
     executeSplunk();
 
     $('#twittertagcloud').jQCloud();
 
 });
 
-function addSlider(sliderId, valueId) {
+function addSlider(sliderId) {
 
-    var sliderId = sliderId;
-    var valueId = valueId;
-    $(sliderId).slider({
-        range: true,
-        min: 0,
-        max: 100,
-        values: [0, 100],
-        create: function(event, ui) {
-            sliders[sliderId[0].id] = {};
-            sliders[sliderId[0].id]['min'] = 0;
-            sliders[sliderId[0].id]['max'] = 1;
-            createMacro(sliderId[0].id);
-        },
-        slide: function(event, ui) {
-            $(valueId).val(ui.values[0] + "% - " + ui.values[1] + "%");
-        },
-        change: function(event, ui) {
-            sliders[sliderId[0].id]['min'] = ui.values[0] / 100;
-            sliders[sliderId[0].id]['max'] = ui.values[1] / 100;
-            executeSplunk();
+    var element = document.getElementById(sliderId);
+    sliders[sliderId] = {};
+    sliders[sliderId]['min'] = 0;
+    sliders[sliderId]['max'] = 1;
+    // createMacro(sliderId);
 
-        }
+    element.addEventListener('change',function(){
+        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
+        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
+        executeSplunk();
     });
-    $(valueId).val($(sliderId).slider("values", 0) +
-        "% - " + $(sliderId).slider("values", 1) + "%");
+    // var sliderId = sliderId;
+    // var valueId = valueId;
+    // $(sliderId).slider({
+    //     range: true,
+    //     min: 0,
+    //     max: 100,
+    //     values: [0, 100],
+    //     create: function(event, ui) {
+    //         sliders[sliderId[0].id] = {};
+    //         sliders[sliderId[0].id]['min'] = 0;
+    //         sliders[sliderId[0].id]['max'] = 1;
+    //         createMacro(sliderId[0].id);
+    //     },
+    //     slide: function(event, ui) {
+    //         $(valueId).val(ui.values[0] + "% - " + ui.values[1] + "%");
+    //     },
+    //     change: function(event, ui) {
+    //         sliders[sliderId[0].id]['min'] = ui.values[0] / 100;
+    //         sliders[sliderId[0].id]['max'] = ui.values[1] / 100;
+    //         executeSplunk();
+
+    //     }
+    // });
+    // $(valueId).val($(sliderId).slider("values", 0) +
+    //     "% - " + $(sliderId).slider("values", 1) + "%");
 }
 
 function loginToSplunk() {
@@ -107,12 +124,16 @@ function generateBBOX() {
 }
 
 function generateMap() {
+<<<<<<< HEAD
 
     var vectorSource = new ol.source.Vector({
         url: 'assets/countries.geo.json',
         format: new ol.format.GeoJSON()
     });
 
+=======
+    console.log('generating map');
+>>>>>>> 5b1163b5f2c3235d23ebd931b995fab12aa5f3b2
     map = new ol.Map({
         target: 'map',
         layers: [
@@ -120,11 +141,6 @@ function generateMap() {
                 source: new ol.source.MapQuest({
                     layer: 'sat'
                 })
-            }),
-            new ol.layer.Vector({
-                source: vectorSource
-
-
             })
         ],
         view: new ol.View({
@@ -135,7 +151,7 @@ function generateMap() {
 
     setTimeout(function(){
         map.updateSize();    
-    },1);
+    },10);
 
     // a normal select interaction to handle click
     var select = new ol.interaction.Select();

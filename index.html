@@ -41,15 +41,15 @@
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_health.png" height="32px" width="32px">Health</p>
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0"/>
+          <input id="slider-range-health" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0" onchange="console.log('changed')"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_crime.png" height="32px" width="32px">Crime</p>
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="1"/>
+          <input id="slider-range-crime" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="1"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_pollution.png" height="32px" width="32px">Pollution</p>
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="2"/>
+          <input id="slider-range-pollution" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="2"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_social.png" height="32px" width="32px">Social</p>
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="3"/>
+          <input id="slider-range-urbanness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="3"/>
           <p class="mdl-navigation__text" href=""><img class="material-icons"src="images/screens_greenness.png" height="32px" width="32px">Green Index</p>
-          <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="4"/>
+          <input id="slider-range-greenness" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="4"/>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -125,6 +125,11 @@
         </div>
       </main>
     </div>
+    <div id="healthchart"></div>
+    <div id="greenchart"></div>
+    <div id="urbanchart"></div>
+    <div id="crimechart"></div>
+    <div id="pollutionchart"></div>
     <script src="material.min.js"></script>
     <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
     <script src="ol.js"></script>
