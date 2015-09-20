@@ -379,7 +379,7 @@ function addMapMarkers(results){
         
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
             var coord = [Math.round(results['columns'][3][i]*100)/100,Math.round(results['columns'][2][i]*100)/100];
-            var transformcoord = ol.proj.transform(coord, 'EPSG:3395', 'EPSG:3857');
+            var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
             var feature = new ol.Feature({
                     geometry: new ol.geom.Point([transformcoord[0],transformcoord[1]]),
                     name: results['columns'][1][i],
