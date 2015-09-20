@@ -8,6 +8,7 @@ var sliders = {};
 $('document').ready(function() {
 
     loginToSplunk();
+    console.log("document ready fired");
     generateMap();
     addSlider($('#slider-range-health'), $('#healthRateValue'));
     addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
@@ -83,15 +84,20 @@ function loginToSplunk() {
         username: "esa",
         password: "esa",
     });
-    service.login(function(err, success) {
-        if (err) {
-            alert(err);
-            return;
-        }
-        console.log("Login was successful: " + success);
-        splunklogin = true;
-    });
-};
+
+    try{
+        service.login(function(err, success) {
+            if (err) {
+                alert(err);
+                return;
+            }
+            console.log("Login was successful: " + success);
+            splunklogin = true;
+        });
+    } catch(e){
+        console.log(e);
+    }
+}
 
 function handleSplunkJob(macroDef) {
 
@@ -127,6 +133,7 @@ function generateBBOX() {
 };
 
 function generateMap() {
+    console.log('generating map');
     var vectorSource = new ol.source.Vector({
         url: 'assets/countries.geo.json',
         format: new ol.format.GeoJSON()
@@ -147,7 +154,7 @@ function generateMap() {
             })
         ],
         view: new ol.View({
-            center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
+            center: ol.proj.transform([18, 48], 'EPSG:4326', 'EPSG:3857'),
             zoom: 4
         })
     });
