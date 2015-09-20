@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ESA Killer App</title>
+        <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="splunk_client/splunk.js"></script>
+        <script type="text/javascript" src="splunk_client/splunk.ui.js"></script>
+        <script type="text/javascript" src="splunk_client/splunk.ui.charting.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var http = new splunkjs.ProxyHttp("/proxy");
+            var service = new splunkjs.Service(http, {
+                username: "admin",
+                password: "admin"
+            });
+            service.login(function(err, success) {
+                if (err) {
+                    throw err;
+                }
+                console.log("Login was successful: " + success);
+                service.jobs().create('search index=_internal | head 1000 | stats count(host), count(source) by sourcetype',{
+                    status_buckets: 300
+                }, function(err, job){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+                    console.log('job created');
+                    job.track({}, {
+                        error: function(err) {
+                            console.log('job error: '+err);
+                        },
+                        done: function(job) {
+                            console.log('job done');
+                            job.results({
+                                output_mode: "json_cols"
+                            }, function(err, results){
+                                if(err){
+                                    console.log(err);
+                                    return;
+                                }
+                                console.log(results);
+                                var chart = new splunkjs.UI.Charting.Chart($("#chart-container"), splunkjs.UI.Charting.ChartType.COLUMN, false);
+                                chart.setData(results, {
+                                    "chart.stackMode": "stacked"
+                                });
+                                chart.draw();
+                            });
+                        }
+                    });
+                });
+                service.jobs().create('| `cities` | head 10',{
+                    status_buckets: 300
+                }, function(err, job){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+                    console.log('job created');
+                    job.track({}, {
+                        error: function(err) {
+                            console.log('job error: '+err);
+                        },
+                        done: function(job) {
+                            console.log('job done');
+                            job.results({
+                                output_mode: "json_cols"
+                            }, function(err, results){
+                                if(err){
+                                    console.log(err);
+                                    return;
+                                }
+                                console.log(results);
+                                var chart = new splunkjs.UI.Charting.Chart($("#cities"), splunkjs.UI.Charting.ChartType.COLUMN, false);
+                                chart.setData(results, {
+                                    "chart.stackMode": "stacked"
+                                });
+                                chart.draw();
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="chart-container"></div>
+        <div id="cities"></div>
+    </body>
+</html>
