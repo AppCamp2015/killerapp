@@ -10,11 +10,17 @@ $('document').ready(function() {
     loginToSplunk();
     console.log("document ready fired");
     generateMap();
-    addSlider($('#slider-range-health'), $('#healthRateValue'));
-    addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
-    addSlider($('#slider-range-crime'), $('#crimeRateValue'));
-    addSlider($('#slider-range-urbanness'), $('#urbannessRateValue'));
-    addSlider($('#slider-range-greenness'), $('#greennessRateValue'));
+    // addSlider($('#slider-range-health'), $('#healthRateValue'));
+    // addSlider($('#slider-range-pollution'), $('#pollutionRateValue'));
+    // addSlider($('#slider-range-crime'), $('#crimeRateValue'));
+    // addSlider($('#slider-range-urbanness'), $('#urbannessRateValue'));
+    // addSlider($('#slider-range-greenness'), $('#greennessRateValue'));
+    addSlider('slider-range-health');
+    addSlider('slider-range-pollution');
+    addSlider('slider-range-crime');
+    addSlider('slider-range-urbanness');
+    addSlider('slider-range-greenness');
+    
     splunkMacros.push(new cityListMacro());
     splunkMacros.push(new twitterTopsMacro());
     executeSplunk();
@@ -49,33 +55,45 @@ function splunkSearch() {
     }
 }
 
-function addSlider(sliderId, valueId) {
 
-    var sliderId = sliderId;
-    var valueId = valueId;
-    $(sliderId).slider({
-        range: true,
-        min: 0,
-        max: 100,
-        values: [0, 100],
-        create: function(event, ui) {
-            sliders[sliderId[0].id] = {};
-            sliders[sliderId[0].id]['min'] = 0;
-            sliders[sliderId[0].id]['max'] = 1;
-            createMacro(sliderId[0].id);
-        },
-        slide: function(event, ui) {
-            $(valueId).val(ui.values[0] + "% - " + ui.values[1] + "%");
-        },
-        change: function(event, ui) {
-            sliders[sliderId[0].id]['min'] = ui.values[0] / 100;
-            sliders[sliderId[0].id]['max'] = ui.values[1] / 100;
-            executeSplunk();
+function addSlider(sliderId) {
 
-        }
+    var element = document.getElementById(sliderId);
+    sliders[sliderId] = {};
+    sliders[sliderId]['min'] = 0;
+    sliders[sliderId]['max'] = 1;
+    createMacro(sliderId);
+
+    element.addEventListener('change',function(){
+        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
+        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
+        executeSplunk();
     });
-    $(valueId).val($(sliderId).slider("values", 0) +
-        "% - " + $(sliderId).slider("values", 1) + "%");
+    // var sliderId = sliderId;
+    // var valueId = valueId;
+    // $(sliderId).slider({
+    //     range: true,
+    //     min: 0,
+    //     max: 100,
+    //     values: [0, 100],
+    //     create: function(event, ui) {
+    //         sliders[sliderId[0].id] = {};
+    //         sliders[sliderId[0].id]['min'] = 0;
+    //         sliders[sliderId[0].id]['max'] = 1;
+    //         createMacro(sliderId[0].id);
+    //     },
+    //     slide: function(event, ui) {
+    //         $(valueId).val(ui.values[0] + "% - " + ui.values[1] + "%");
+    //     },
+    //     change: function(event, ui) {
+    //         sliders[sliderId[0].id]['min'] = ui.values[0] / 100;
+    //         sliders[sliderId[0].id]['max'] = ui.values[1] / 100;
+    //         executeSplunk();
+
+    //     }
+    // });
+    // $(valueId).val($(sliderId).slider("values", 0) +
+    //     "% - " + $(sliderId).slider("values", 1) + "%");
 }
 
 function loginToSplunk() {
@@ -161,7 +179,7 @@ function generateMap() {
 
     setTimeout(function(){
         map.updateSize();    
-    },1);
+    },10);
 
     // a normal select interaction to handle click
     var select = new ol.interaction.Select();
@@ -217,6 +235,7 @@ function executeSplunk() {
         job();
     });
     currentJobs = [];
+    return;
 
     // var splunkMacros = getSplunkMacros();
 
