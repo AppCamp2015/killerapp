@@ -14,10 +14,7 @@ $('document').ready(function() {
     addSlider('slider-range-greenness');
     
     splunkMacros.push(new cityListMacro());
-    // splunkMacros.push(new twitterTopsMacro());
-
-
-    $('#twittertagcloud').jQCloud();
+    splunkMacros.push(new twitterTopsMacro());
 
     loginToSplunk();
 });
@@ -321,6 +318,8 @@ function greenChartMacro() {
 };
 
 function twitterTopsMacro() {
+    $('#twittertagcloud').jQCloud();
+
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('twitter', macro);
@@ -331,16 +330,13 @@ function twitterTopsMacro() {
             words = results.rows.map(function(r){
                     return {"text":r[0],"weight":r[1]};
                 });
-            //var words = results;
             $('#twittertagcloud').jQCloud("update", words);
 
         }, function(){
         },
         "json_rows");
     }
-};
-
-
+}
 
 function cityListMacro() {
 
