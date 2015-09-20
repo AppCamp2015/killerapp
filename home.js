@@ -207,16 +207,8 @@ function pollutionChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
-    var loading=$("#pollutionchartloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    
+   $('#poll_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('pollution_chart', macro);
@@ -224,7 +216,7 @@ function pollutionChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#poll_load').removeClass('is-active');
             if(err){
                 chart.setData({
                     fields: [],
@@ -235,7 +227,7 @@ function pollutionChartMacro() {
             }
             chart.draw();
         }, function() {
-            showLoading();
+            $('#poll_load').addClass('is-active');
         });
     }
 }
@@ -260,16 +252,8 @@ function healthChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
-    var loading=$("#healthchartloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    
+    $('#health_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('health_chart', macro);
@@ -277,7 +261,7 @@ function healthChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#health_load').removeClass('is-active');
             if(err){
                 chart.setData({
                     fields: [],
@@ -288,7 +272,7 @@ function healthChartMacro() {
             }
             chart.draw();
         }, function(){
-            showLoading();
+            $('#health_load').addClass('is-active');
         });
     }
 }
@@ -307,16 +291,7 @@ function crimeChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
-    var loading=$("#crimechartloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    $('#crime_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('crime_chart', macro);
@@ -324,7 +299,7 @@ function crimeChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#crime_load').removeClass('is-active');
             if(err){
                 chart.setData({
                     fields: [],
@@ -335,7 +310,7 @@ function crimeChartMacro() {
             }
             chart.draw();
         }, function() {
-            showLoading();
+            $('#crime_load').addClass('is-active');
         });
     }
 }
@@ -349,16 +324,7 @@ function urbanChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
-    var loading=$("#urbanchartloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    $('#urban_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('urbanness_chart', macro);
@@ -366,7 +332,7 @@ function urbanChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#urban_load').removeClass('is-active');
             if(err){
                 chart.setData({
                     fields: [],
@@ -377,7 +343,7 @@ function urbanChartMacro() {
             }
             chart.draw();
         }, function() {
-            showLoading();
+            $('#urban_load').addClass('is-active');
         });
     }
 }
@@ -391,16 +357,7 @@ function greenChartMacro() {
         columns: []
     }, chartMode);
     chart.draw();
-    var loading=$("#greenchartloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    $('#green_load').toggleClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('greenness_chart', macro);
@@ -408,7 +365,7 @@ function greenChartMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#green_load').removeClass('is-active');
             if(err){
                 chart.setData({
                     fields: [],
@@ -419,23 +376,14 @@ function greenChartMacro() {
             }
             chart.draw();
         }, function(){
-            showLoading();
+            $('#green_load').addClass('is-active');
         });
     }
 }
 
 function twitterTopsMacro() {
     $('#twittertagcloud').jQCloud();
-    var loading=$("#twittertagcloudloading");
-    var showLoading=function(){
-        loading.css("float", "right");
-        //e.css("position", "absolute");
-        //e.css("left", $el.position().left+$el.width()/2);
-        //e.css("top", $el.position().top+$el.height()/3);
-        //e.css("z-index", 100);
-        loading.show();
-    };
-    showLoading();
+    $('#twitter_load').addClass('is-active');
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
         return generateQueryString('twitter', macro);
@@ -443,7 +391,7 @@ function twitterTopsMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-            loading.hide();
+            $('#twitter_load').removeClass('is-active');
             if(err){
                 words=[];
             }else{
@@ -453,15 +401,14 @@ function twitterTopsMacro() {
             }
             $('#twittertagcloud').jQCloud("update", words);
         }, function(){
-            showLoading();
+            $('#twitter_load').addClass('is-active');
         },
         "json_rows");
     }
 }
 
 function cityListMacro() {
-    var mapLoading = $('#maploading');
-    mapLoading.css('display','block');
+    $('#city_load').addClass('is-active');
 
     var searchString = function() {
         var macro = new splunkMacro(generateBBOX(), sliders);
@@ -470,7 +417,7 @@ function cityListMacro() {
     this.getMacroDef = function() {
         // this regenerates the searchstring based on current values e.g call the macro function once 
         return new macroDef(searchString(), function(results, err) {
-                mapLoading.css('display','none');
+                $('#city_load').removeClass('is-active');
                 if(err){
                     addMapMarkers([]);
                 }else{
@@ -478,7 +425,7 @@ function cityListMacro() {
                 }
             },
             function() {
-                mapLoading.css('display','block');
+                $('#city_load').removeClass('is-active');
             });
     }
 }
@@ -562,31 +509,6 @@ function addMapMarkers(results){
             // pointSource.addFeatures(points);	
 };
 
-
-// var createLineStyleFunction = function() {
-//   return function(feature, resolution) {
-//     var style = new ol.style.Style({
-//       stroke: new ol.style.Stroke({
-//         color: 'green',
-//         width: 2
-//       }),
-//       text: createTextStyle(feature, resolution, myDom.lines)
-//     });
-//     return [style];
-//   };
-// };
-
-// new ol.style.Text({
-//     textAlign: align,
-//     textBaseline: baseline,
-//     font: font,
-//     text: getText(feature, resolution, dom),
-//     fill: new ol.style.Fill({color: fillColor}),
-//     stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
-//     offsetX: offsetX,
-//     offsetY: offsetY,
-//     rotation: rotation
-//   });
 
 function generateFeatureStyle(feature){
     
