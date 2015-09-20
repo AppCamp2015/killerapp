@@ -472,18 +472,6 @@ function addMapMarkers(results){
     }
     var points = [];
 
-        var iconStyle = new ol.style.Style({
-            image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-                anchor: [0.5, 46],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                opacity: 0.75,
-                //src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
-                src: 'images/screens_marker.png'
-            }))
-        });
-
-        
     for (var i = 0; i < results['columns'][0].length - 1; i++) {
             var coord = [Math.round(results['columns'][3][i]*100)/100,Math.round(results['columns'][2][i]*100)/100];
             var transformcoord = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
@@ -513,25 +501,33 @@ function addMapMarkers(results){
             // pointSource.addFeatures(points);	
 };
 
+var mapMarkerIcon = new ol.style.Icon({
+    anchor: [0.5, 1],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'fraction',
+    opacity: 0.75,
+    //src: 'https://developer.mapquest.com/sites/default/files/mapquest/osm/mq_logo.png'
+    src: 'images/screens_marker.png'
+});
 
 function generateFeatureStyle(feature){
     
-return [new ol.style.Style({
-    text: new ol.style.Text({
-        text: feature.get('name'),
-        fill: new ol.style.Fill({color: 'white'}),
-        stroke: new ol.style.Stroke({color: 'white', width: 1}),
-        textBaseLine: 'Middle',
-        textAlign: 'Center',
-        font: 'Bold 12px Arial',
-        scale: 1,
-        offsetY: 20
+    return [new ol.style.Style({
+        text: new ol.style.Text({
+            text: feature.get('name'),
+            fill: new ol.style.Fill({color: 'white'}),
+            stroke: new ol.style.Stroke({color: 'white', width: 1}),
+            textBaseLine: 'Middle',
+            textAlign: 'Center',
+            font: 'Bold 12px Arial',
+            scale: 1,
+            offsetY: 20
 
-        }),
-    image:  new ol.style.Circle({
-        radius: 5,
-        fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
-        stroke: new ol.style.Stroke({color: 'white', width: 1})
-      }) 
-})];
+            }),
+        image: mapMarkerIcon /*  new ol.style.Circle({
+            radius: 5,
+            fill: new ol.style.Fill({color: 'rgba(255, 0, 0, 0.1)'}),
+            stroke: new ol.style.Stroke({color: 'white', width: 1})
+          }) */
+    })];
 }
