@@ -418,7 +418,9 @@ function cityListMacro() {
         return new macroDef(searchString(), function(results, err) {
                 $('#city_load').removeClass('is-active');
                 if(err){
-                    addMapMarkers([]);
+                    addMapMarkers({
+                        columns: [[]]
+                    });
                 }else{
                     addMapMarkers(results);
                 }
