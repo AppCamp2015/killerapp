@@ -462,7 +462,7 @@ function createMacro(sliderName) {
 
 function addMapMarkers(results){
 
-    if(results == null){
+    if(results === null || results['columns'].length === 0 || results === ""){
         console.log("no results received");
         return;
     }
