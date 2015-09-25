@@ -24,8 +24,8 @@ function addSlider(sliderId) {
     var element = document.getElementById(sliderId);
     sliders[sliderId] = {};
     var updateValues=function(){
-        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-40))/100.0;
-        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+40))/100.0;
+        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-50))/100.0;
+        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+50))/100.0;
     };
     updateValues();
     createMacro(sliderId);
