@@ -81,7 +81,7 @@ function loginToSplunk() {
 function handleSplunkJob(macroDef) {
     macroDef.startLoading();
 
-    console.log(macroDef.queryString);
+    //console.log(macroDef.queryString);
 
     var cancelled = false;
     var request = service.oneshotSearch(
