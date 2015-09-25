@@ -468,6 +468,13 @@ function addMapMarkers(results){
         console.log("no results received");
         return;
     }
+
+    try {
+        var length = results['columns'][0].length;
+    }catch(e){
+        console.log(e);
+        return;
+    }
     var points = [];
 
         var iconStyle = new ol.style.Style({
