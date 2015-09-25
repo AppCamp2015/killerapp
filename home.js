@@ -21,16 +21,16 @@ $('document').ready(function() {
 });
 
 function addSlider(sliderId) {
-
     var element = document.getElementById(sliderId);
     sliders[sliderId] = {};
-    sliders[sliderId]['min'] = 0;
-    sliders[sliderId]['max'] = 1;
+    var updateValues=function(){
+        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-50))/100.0;
+        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+50))/100.0;
+    };
+    updateValues();
     createMacro(sliderId);
-
     element.addEventListener('change',function(){
-        sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
-        sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
+        updateValues();
         executeSplunk();
     });
 }
@@ -64,7 +64,8 @@ function loginToSplunk() {
     try{
         service.login(function(err, success) {
             if (err) {
-                alert(err);
+                console.error(err);
+                alert("Backend login failed");
                 return;
             }
             console.log("Login was successful: " + success);
@@ -80,10 +81,11 @@ function loginToSplunk() {
 function handleSplunkJob(macroDef) {
     macroDef.startLoading();
 
-    var search = macroDef.queryString;
+    //console.log(macroDef.queryString);
+
     var cancelled = false;
     var request = service.oneshotSearch(
-        search, {output_mode: macroDef.outputmode },
+        macroDef.queryString, {output_mode: macroDef.outputmode },
         function(err, results) {
             request=null;
             if (cancelled) {
