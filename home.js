@@ -21,16 +21,16 @@ $('document').ready(function() {
 });
 
 function addSlider(sliderId) {
-
     var element = document.getElementById(sliderId);
     sliders[sliderId] = {};
-    sliders[sliderId]['min'] = 0;
-    sliders[sliderId]['max'] = 1;
-    createMacro(sliderId);
-
-    element.addEventListener('change',function(){
+    var updateValues=function(){
         sliders[sliderId]['min'] = Math.max(0,(parseInt(element.value)-25))/100.0;
         sliders[sliderId]['max'] = Math.min(100,(parseInt(element.value)+25))/100.0;
+    };
+    updateValues();
+    createMacro(sliderId);
+    element.addEventListener('change',function(){
+        updateValues();
         executeSplunk();
     });
 }
