@@ -64,7 +64,8 @@ function loginToSplunk() {
     try{
         service.login(function(err, success) {
             if (err) {
-                alert(err);
+                console.error(err);
+                alert("Backend login failed");
                 return;
             }
             console.log("Login was successful: " + success);
